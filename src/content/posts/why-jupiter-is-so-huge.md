@@ -4,7 +4,7 @@ description: Jupiter is the biggest planet in our solar system, and it is basica
 pubDate: 2026-04-20
 author: Space Explorer
 category: Planets
-heroImage: https://images.unsplash.com/photo-1614729939124-032f0b1f5fda?auto=format&fit=crop&w=1200&q=80
+heroImage: /images/jupiter-hero.svg
 featured: true
 draft: false
 slug: why-jupiter-is-so-huge

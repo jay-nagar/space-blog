@@ -15,8 +15,7 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow">Kid-friendly space stories</div>
-          <h1>A fun blog for sharing amazing facts about space.</h1>
+          <h1>A website for amazing facts and news about space.</h1>
           <p>Your son can write articles about planets, rockets, astronauts, galaxies, and missions with an easy Git-backed editor.</p>
           <div class="hero-actions">
             <a class="primary-btn" href="/articles">Browse articles</a>
@@ -55,11 +54,18 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
 
 <style>
   .hero-grid {
-    display: grid; grid-template-columns: 1.1fr .95fr; gap: 1.5rem; align-items: stretch;
+    display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .95fr); gap: 1.5rem; align-items: stretch;
+  }
+  .hero-grid > * { min-width: 0; }
+  .hero {
+    padding: 4rem 0 4.5rem;
+    background:
+      radial-gradient(circle at top left, rgba(86, 180, 255, 0.12), transparent 30%),
+      linear-gradient(180deg, #07111f 0%, #0a1930 100%);
   }
   .hero-copy { padding: 1rem 0 0; }
   .eyebrow, .mini { color: #8dcfff; text-transform: uppercase; letter-spacing: .13em; font-weight: 800; font-size: .8rem; }
-  h1 { font-size: clamp(2.2rem, 4vw, 4.5rem); line-height: 1.02; margin: .75rem 0 1rem; max-width: 11ch; }
+  h1 { font-size: clamp(2.2rem, 4vw, 4.5rem); line-height: 1.12; margin: 0 0 1.2rem; max-width: 11ch; }
   .hero-copy p { color: #bfd0e6; font-size: 1.1rem; max-width: 55ch; }
   .hero-actions { display: flex; gap: .8rem; margin-top: 1.4rem; flex-wrap: wrap; }
   .primary-btn, .secondary-btn {
@@ -70,13 +76,17 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
   .feature-card {
     background: white; color: #102033; border-radius: 30px; overflow: hidden; border: 1px solid #deebff;
     box-shadow: 0 18px 40px rgba(6, 30, 66, 0.12);
+    display: block;
   }
   .feature-image { width: 100%; height: 320px; object-fit: cover; }
   .feature-body { padding: 1.2rem 1.25rem 1.4rem; }
   .feature-chip { display: inline-block; background: #edf6ff; color: #22588c; border-radius: 999px; padding: .35rem .7rem; font-weight: 800; font-size: .78rem; }
   .feature-body h2 { margin: .75rem 0 .6rem; font-size: 1.6rem; }
   .feature-body p { color: #526b88; margin: 0; }
-  .posts-section { padding: 1rem 0 3rem; }
+  .posts-section {
+    padding: 2.25rem 0 3rem;
+    background: linear-gradient(180deg, #eef4fd 0%, #eef6ff 100%);
+  }
   .section-head { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: 1.25rem; color: #102033; }
   .section-head h2 { margin: .35rem 0 0; font-size: 2rem; }
   .section-link { color: #175f9e; font-weight: 700; }
