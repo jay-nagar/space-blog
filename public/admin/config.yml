@@ -1,0 +1,29 @@
+backend:
+  name: github
+  repo: your-github-username/your-repo-name
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+site_url: https://example.netlify.app
+logo_url: /favicon.svg
+
+collections:
+  - name: posts
+    label: Posts
+    folder: src/content/posts
+    create: true
+    slug: '{{slug}}'
+    preview_path: articles/{{slug}}
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Publish Date, name: pubDate, widget: datetime, format: 'YYYY-MM-DD' }
+      - { label: Author, name: author, widget: string, default: 'Space Explorer' }
+      - { label: Category, name: category, widget: select, options: ['Planets', 'Stars', 'Astronauts', 'Rockets', 'Space News', 'Black Holes', 'Galaxies', 'Missions'] }
+      - { label: Hero Image, name: heroImage, widget: image, required: false }
+      - { label: Featured Post, name: featured, widget: boolean, default: false }
+      - { label: Draft, name: draft, widget: boolean, default: false }
+      - { label: Slug, name: slug, widget: string, hint: 'Use lowercase words separated by hyphens' }
+      - { label: Body, name: body, widget: markdown }

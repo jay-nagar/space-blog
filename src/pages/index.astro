@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
+---
+<BaseLayout>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Kid-friendly space stories</div>
+          <h1>A fun blog for sharing amazing facts about space.</h1>
+          <p>Your son can write articles about planets, rockets, astronauts, galaxies, and missions with an easy Git-backed editor.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="/articles">Browse articles</a>
+            <a class="secondary-btn" href="/admin/">Write a new post</a>
+          </div>
+        </div>
+        {featured && (
+          <a class="feature-card" href={`/articles/${featured.data.slug}/`}>
+            {featured.data.heroImage && <img src={featured.data.heroImage} alt={featured.data.title} class="feature-image" />}
+            <div class="feature-body">
+              <span class="feature-chip">Featured</span>
+              <h2>{featured.data.title}</h2>
+              <p>{featured.data.description}</p>
+            </div>
+          </a>
+        )}
+      </div>
+    </section>
+
+    <section class="posts-section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="mini">Latest posts</div>
+            <h2>Fresh discoveries and cool space facts</h2>
+          </div>
+          <a class="section-link" href="/articles">See all articles</a>
+        </div>
+        <div class="grid">
+          {latest.map((post) => <PostCard post={post} />)}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr .95fr; gap: 1.5rem; align-items: stretch;
+  }
+  .hero-copy { padding: 1rem 0 0; }
+  .eyebrow, .mini { color: #8dcfff; text-transform: uppercase; letter-spacing: .13em; font-weight: 800; font-size: .8rem; }
+  h1 { font-size: clamp(2.2rem, 4vw, 4.5rem); line-height: 1.02; margin: .75rem 0 1rem; max-width: 11ch; }
+  .hero-copy p { color: #bfd0e6; font-size: 1.1rem; max-width: 55ch; }
+  .hero-actions { display: flex; gap: .8rem; margin-top: 1.4rem; flex-wrap: wrap; }
+  .primary-btn, .secondary-btn {
+    padding: .95rem 1.2rem; border-radius: 999px; font-weight: 800; display: inline-block;
+  }
+  .primary-btn { background: linear-gradient(135deg, #56b4ff, #8b5cf6); color: white; }
+  .secondary-btn { border: 1px solid rgba(255,255,255,.12); color: white; background: rgba(255,255,255,.05); }
+  .feature-card {
+    background: white; color: #102033; border-radius: 30px; overflow: hidden; border: 1px solid #deebff;
+    box-shadow: 0 18px 40px rgba(6, 30, 66, 0.12);
+  }
+  .feature-image { width: 100%; height: 320px; object-fit: cover; }
+  .feature-body { padding: 1.2rem 1.25rem 1.4rem; }
+  .feature-chip { display: inline-block; background: #edf6ff; color: #22588c; border-radius: 999px; padding: .35rem .7rem; font-weight: 800; font-size: .78rem; }
+  .feature-body h2 { margin: .75rem 0 .6rem; font-size: 1.6rem; }
+  .feature-body p { color: #526b88; margin: 0; }
+  .posts-section { padding: 1rem 0 3rem; }
+  .section-head { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: 1.25rem; color: #102033; }
+  .section-head h2 { margin: .35rem 0 0; font-size: 2rem; }
+  .section-link { color: #175f9e; font-weight: 700; }
+  .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 900px) {
+    .hero-grid, .grid { grid-template-columns: 1fr; }
+    h1 { max-width: none; }
+  }
+</style>

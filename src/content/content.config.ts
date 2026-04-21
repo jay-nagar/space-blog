@@ -1,0 +1,17 @@
+import { defineCollection, z } from 'astro:content';
+
+const posts = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    author: z.string().default('Space Explorer'),
+    category: z.string().default('Space News'),
+    heroImage: z.string().optional(),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+    slug: z.string(),
+  }),
+});
+
+export const collections = { posts };

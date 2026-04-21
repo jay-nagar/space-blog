@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.filter((post) => !post.data.draft).map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+---
+<BaseLayout title={`${post.data.title} | Space Explorer Blog`} description={post.data.description}>
+  <main class="container article-wrap">
+    <article class="article-card">
+      {post.data.heroImage && <img src={post.data.heroImage} alt={post.data.title} class="hero-image" />}
+      <div class="article-body">
+        <div class="meta-row">
+          <span class="chip">{post.data.category}</span>
+          <span class="meta">{new Date(post.data.pubDate).toLocaleDateString()} • {post.data.author}</span>
+        </div>
+        <h1>{post.data.title}</h1>
+        <p class="dek">{post.data.description}</p>
+        <div class="content" set:html={post.body.replace(/\n/g, '<br />')} />
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .article-wrap { padding: 3rem 0; }
+  .article-card { background: white; border: 1px solid #dce9fb; border-radius: 30px; overflow: hidden; box-shadow: 0 18px 44px rgba(6, 30, 66, 0.1); }
+  .hero-image { width: 100%; max-height: 460px; object-fit: cover; }
+  .article-body { color: #102033; padding: 2rem; }
+  .meta-row { display: flex; justify-content: space-between; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+  .chip { background: #edf6ff; color: #22588c; border-radius: 999px; padding: .35rem .7rem; font-size: .8rem; font-weight: 700; }
+  .meta { color: #617a98; }
+  h1 { font-size: clamp(2rem, 4vw, 3.5rem); margin: 0 0 .75rem; line-height: 1.05; }
+  .dek { color: #54708f; font-size: 1.12rem; margin: 0 0 1.5rem; }
+  .content { line-height: 1.85; font-size: 1.08rem; color: #24384f; }
+</style>

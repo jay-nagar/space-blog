@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout title="Articles | Space Explorer Blog">
+  <main class="container articles-page">
+    <div class="top-copy">
+      <div class="eyebrow">All articles</div>
+      <h1>Every article in the space blog</h1>
+      <p>Browse all published posts about planets, rockets, astronauts, and more.</p>
+    </div>
+    <div class="grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .articles-page { padding: 3rem 0; }
+  .top-copy { color: #102033; margin-bottom: 1.5rem; }
+  .eyebrow { color: #2c75b7; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; font-size: .8rem; }
+  h1 { font-size: clamp(2rem, 4vw, 3.2rem); margin: .5rem 0 .7rem; }
+  p { color: #5a728f; }
+  .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+</style>

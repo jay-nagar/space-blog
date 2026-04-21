@@ -1,0 +1,33 @@
+---
+const { post } = Astro.props;
+const { title, description, pubDate, category, heroImage, slug } = post.data;
+---
+<article class="card">
+  {heroImage && <img src={heroImage} alt={title} class="card-image" />}
+  <div class="card-body">
+    <div class="meta-row">
+      {category && <span class="chip">{category}</span>}
+      <span class="date">{new Date(pubDate).toLocaleDateString()}</span>
+    </div>
+    <h3><a href={`/articles/${slug}/`}>{title}</a></h3>
+    <p>{description}</p>
+    <a class="read-link" href={`/articles/${slug}/`}>Read article →</a>
+  </div>
+</article>
+
+<style>
+  .card {
+    overflow: hidden; background: white; border: 1px solid #dce9fb; border-radius: 26px;
+    box-shadow: 0 14px 34px rgba(6, 30, 66, 0.08); height: 100%;
+  }
+  .card-image { width: 100%; height: 210px; object-fit: cover; }
+  .card-body { padding: 1.25rem; color: #102033; }
+  .meta-row { display: flex; justify-content: space-between; gap: .75rem; align-items: center; margin-bottom: .8rem; }
+  .chip {
+    background: #edf6ff; color: #22588c; border-radius: 999px; padding: .35rem .7rem; font-size: .8rem; font-weight: 700;
+  }
+  .date { color: #6b86a6; font-size: .9rem; }
+  h3 { font-size: 1.35rem; line-height: 1.2; margin: 0 0 .65rem; }
+  p { color: #536c88; margin: 0 0 1rem; }
+  .read-link { font-weight: 700; color: #155ea5; }
+</style>
