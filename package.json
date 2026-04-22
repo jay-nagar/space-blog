@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "cms:proxy": "decap-server",
     "build": "astro build",
     "preview": "astro preview"
   },
   "dependencies": {
     "astro": "^6.1.8",
     "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "decap-server": "^3.7.0"
   }
 }

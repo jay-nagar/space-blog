@@ -16,23 +16,37 @@ npm install
 npm run dev
 ```
 
+## Local CMS editing
+For `/admin` on localhost, run the Decap local backend proxy in a second terminal:
+
+```bash
+npm run cms:proxy
+```
+
+Then open `http://localhost:4321/admin/`.
+
+This avoids Netlify auth during local development and lets Decap edit the local Git repo directly.
+
 ## Deploy to Netlify
 1. Push this project to a GitHub repo.
 2. In Netlify, create a new site from that repo.
 3. Build command: `npm run build`
 4. Publish directory: `dist`
 5. Set your production site URL in `astro.config.mjs`.
-6. Update `public/admin/config.yml` with your GitHub repo name.
 
 ## Decap CMS setup
-This starter uses the GitHub backend.
+This project is configured for:
+- `local_backend` on localhost while developing
+- `git-gateway` in production on Netlify
 
-Update this line in `public/admin/config.yml`:
-```yml
-repo: your-github-username/your-repo-name
-```
+### Netlify production checklist
+1. In Netlify, open your site and enable `Identity`.
+2. Set registration to `Invite only` unless you want public signups.
+3. Enable `Git Gateway` under Identity services.
+4. Invite yourself as an Identity user from the Netlify dashboard.
+5. Open `https://your-site.netlify.app/admin/` and complete login there.
 
-If you want editorial access without giving full repo access, you can later switch to a more advanced GitHub auth flow or a different CMS setup.
+The admin page includes the Netlify Identity widget, and the main site includes the redirect script Decap expects after login.
 
 ## Content editing
 Articles live in:

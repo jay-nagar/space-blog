@@ -1,5 +1,5 @@
 ---
-title: What Do Astronauts Eat in Space?
+title: What Do Astronauts Eat in Space? Bro
 description: Astronaut food has come a long way from tubes and freeze-dried blocks.
 pubDate: 2026-04-18
 author: Space Explorer

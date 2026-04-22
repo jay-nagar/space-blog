@@ -1,10 +1,12 @@
+local_backend: true
+
 backend:
-  name: github
-  repo: jay-nagar/space-blog
+  name: git-gateway
   branch: main
 
 media_folder: public/uploads
 public_folder: /uploads
+site_url: https://orbitupdate.netlify.app
 
 logo_url: /favicon.svg
 
